@@ -15,8 +15,30 @@ st.title("🔍 AI Resume Matcher")
 st.write("Upload your resume and get matched with top job descriptions!")
 
 resume_file = st.file_uploader("📄 Upload your resume (.txt or .pdf)", type=["pdf", "txt"])
-job_csv_file = st.file_uploader("📊 Upload job descriptions CSV", type="csv")
 top_k = st.slider("🔢 Select top K matches", 1, 10, 5)
+
+# Use hardcoded job descriptions
+job_data = [
+    {
+        "Job Title": "Data Scientist",
+        "Job Description": "Analyze data trends and build predictive models.",
+        "Required Skills": "Python, SQL, Machine Learning, Statistics"
+    },
+    {
+        "Job Title": "Web Developer",
+        "Job Description": "Develop responsive web applications and maintain front-end features.",
+        "Required Skills": "HTML, CSS, JavaScript, React"
+    },
+    {
+        "Job Title": "AI Engineer",
+        "Job Description": "Build NLP models using BERT and deploy scalable solutions.",
+        "Required Skills": "Python, PyTorch, BERT, NLP"
+    }
+]
+
+jobs_df = pd.DataFrame(job_data)
+jobs_df["combined"] = jobs_df["Job Title"] + ". " +                       jobs_df["Job Description"] + " Skills: " +                       jobs_df["Required Skills"]
+job_descriptions = jobs_df["combined"].tolist()
 
 def load_resume_text(uploaded_file):
     ext = os.path.splitext(uploaded_file.name)[-1].lower()
@@ -27,12 +49,9 @@ def load_resume_text(uploaded_file):
     else:
         return None
 
-if resume_file and job_csv_file:
+if resume_file:
     with st.spinner("🔍 Matching your resume with job descriptions..."):
         resume_text = load_resume_text(resume_file)
-        jobs_df = pd.read_csv(job_csv_file)
-        jobs_df["combined"] = jobs_df["Job Title"] + ". " +                               jobs_df["Job Description"] + " Skills: " +                               jobs_df["Required Skills"]
-        job_descriptions = jobs_df["combined"].tolist()
         resume_embedding = model.encode(resume_text, convert_to_tensor=True)
         job_embeddings = model.encode(job_descriptions, convert_to_tensor=True)
         cosine_scores = util.cos_sim(resume_embedding, job_embeddings)[0]
