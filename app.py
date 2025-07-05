@@ -55,6 +55,7 @@ if resume_file:
         resume_embedding = model.encode(resume_text, convert_to_tensor=True)
         job_embeddings = model.encode(job_descriptions, convert_to_tensor=True)
         cosine_scores = util.cos_sim(resume_embedding, job_embeddings)[0]
+        top_k = min(top_k, len(cosine_scores))  # safeguard
         top_results = torch.topk(cosine_scores, k=top_k)
         st.success("✅ Matching Complete!")
         st.subheader("🎯 Top Job Matches:")
