@@ -60,8 +60,9 @@ if resume_file:
         st.success("✅ Matching Complete!")
         st.subheader("🎯 Top Job Matches:")
         for score, idx in zip(top_results[0], top_results[1]):
-            st.markdown(f"**🧠 Job Title**: {jobs_df.iloc[idx]['Job Title']}")
-            st.markdown(f"**📄 Description**: {jobs_df.iloc[idx]['Job Description']}")
-            st.markdown(f"**🛠 Required Skills**: {jobs_df.iloc[idx]['Required Skills']}")
-            st.markdown(f"**🎯 Match Score**: `{score.item():.4f}`")
-            st.markdown("---")
+           i = idx.item()  # convert tensor to int
+           st.markdown(f"**🧠 Job Title**: {jobs_df.iloc[i]['Job Title']}")
+           st.markdown(f"**📄 Description**: {jobs_df.iloc[i]['Job Description']}")
+           st.markdown(f"**🛠 Required Skills**: {jobs_df.iloc[i]['Required Skills']}")
+           st.markdown(f"**🎯 Match Score**: `{score.item():.4f}`")
+           st.markdown("---")
