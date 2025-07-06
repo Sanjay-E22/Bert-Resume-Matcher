@@ -1,22 +1,36 @@
-# BERT Resume Matcher
+# 🧠 AI Resume Matcher – BERT + Streamlit
 
-This is a simple web app that lets you upload a resume and match it with job descriptions using BERT embeddings (SentenceTransformer).
+Hi there! 👋
 
-## How to Run Locally
+This is a smart little tool I built to help job seekers (like me!) see which job descriptions best match their resume — using **AI**, not just keywords.
 
-1. **Install requirements**:
-```bash
-pip install -r requirements.txt
-```
+🚀 **Try it live**: 
+https://sanjay-e22-bert-resume-matcher-app-zlz0tl.streamlit.app/
 
-2. **Run the app**:
-```bash
-streamlit run app.py
-```
 
-3. **Visit**: `http://localhost:8501`
 
-## Files
+upload your resume (PDF or TXT), and the app:
+1. Reads your resume using `pdfminer` or `txt` reader
+2. Compares it to a list of job descriptions using **BERT embeddings**
+3. Returns the **top matching jobs**, scored by semantic similarity — not just keywords!
 
-- `app.py` – Main Streamlit app
-- `sample_job_descriptions.csv` – Sample job descriptions
+
+## 🛠️ Tech Stack
+
+- 🧠 **Sentence-BERT** (`all-MiniLM-L6-v2`)
+- 🧾 **pdfminer.six** (to extract text from PDFs)
+- 📊 **Pandas** (for handling job data)
+- ⚙️ **PyTorch** (for similarity scoring)
+- 🌐 **Streamlit** (for the interactive web UI)
+
+
+## 📂 How to Run Locally
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/yourusername/bert-resume-matcher.git
+   cd bert-resume-matcher
+
+
+Let me know if you'd like this customized further with:
+EMAIL: sanjayelangovan22@gmail.com
